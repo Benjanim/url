@@ -2,10 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-module.exports = (req, res) => {
-  res.end(`Hello from Node.js on Now`)
-}
-
 const urls = require('./db/urls');
 
 const app = express();
@@ -13,6 +9,10 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(express.static('./public'));
+
+app.get("/", (req, res) => {
+  res.send("working")
+})
 
 app.get('/:name', async (req, res) => {
   const puny = await urls.find(req.params.name);
@@ -34,7 +34,12 @@ app.post('/api/puny', async (req, res) => {
   }
 });
 
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+module.exports = (req, res) => {
+  res.end(`Hello from Node.js on Now`)
+}
