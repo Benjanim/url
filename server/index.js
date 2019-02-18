@@ -2,6 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+module.exports = (req, res) => {
+  res.end(`Hello from Node.js on Now`)
+}
+
 const urls = require('./db/urls');
 
 const app = express();
